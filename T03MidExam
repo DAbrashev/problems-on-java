@@ -1,0 +1,57 @@
+package src.MidExam;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+public class T03 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        List<Integer> numbers = Arrays.stream(scanner.nextLine()
+                        .split(", "))
+                .map(Integer::parseInt).toList();
+
+        int entryPoint = Integer.parseInt(scanner.nextLine());
+        String type = scanner.nextLine();
+        int leftSum = 0;
+        int rightSum =0;
+
+        for (int leftSide = 0; leftSide < entryPoint; leftSide++) {
+            int entryNumber = numbers.get(entryPoint);
+            int currentNumber = numbers.get(leftSide);
+
+            if (type.equals("cheap")){
+                if (currentNumber < entryNumber){
+                    leftSum += currentNumber;
+                }
+            } else if (type.equals("expensive")) {
+                if (currentNumber >= entryNumber){
+                    leftSum += currentNumber;
+                }
+            }
+
+        }
+
+        for (int rightSide = entryPoint + 1; rightSide <= numbers.size() - 1; rightSide++) {
+            int currentNumber = numbers.get(rightSide);
+            int entryNumber = numbers.get(entryPoint);
+
+            if (type.equals("cheap")){
+                if (currentNumber < entryNumber){
+                    rightSum += currentNumber;
+                }
+            } else if (type.equals("expensive")) {
+                if (currentNumber >= entryNumber){
+                    rightSum += currentNumber;
+                }
+            }
+        }
+        if (leftSum >= rightSum){
+            System.out.println("Left - " + leftSum);
+        }else {
+            System.out.println("Right - " + rightSum);
+        }
+    }
+}
